@@ -7,6 +7,8 @@ import toast, { Toaster } from "react-hot-toast";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
+import MyEvents from "./pages/MyEvents";
+import Myparticipation from "./pages/Myparticipation";
 
 export default function App() {
   return (
@@ -21,6 +23,8 @@ export default function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<RegisterPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/myevents" element={<MyEvents />} />
+        <Route path="/myparticipation" element={<Myparticipation />} />
       </Routes>
       <div>
         <Toaster />

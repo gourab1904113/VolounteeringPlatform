@@ -8,6 +8,7 @@ export const useEvents = create((set, get) => ({
   events: [],
   loading: false,
   error: null,
+  myparticipation: [],
 
   formData: {
     title: "",
@@ -61,10 +62,34 @@ export const useEvents = create((set, get) => ({
   fetchEvents: async () => {
     set({ loading: true });
     try {
-      const response = await axios.get(`${BASE_URL}/api/events`);
+      const token = localStorage.getItem("token");
+      const response = await axios.get(`${BASE_URL}/api/events`, {
+        headers: { Authorization: `Bearer ${token}` }, // Add token here
+      });
       set({ events: response.data.data, error: null });
     } catch (error) {
       set({ error: "Something went wrong while fetching events" });
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  fetchmyparticipation: async (user_id) => {
+    set({ loading: true });
+    try {
+      const token = localStorage.getItem("token"); // Retrieve token from localStorage
+      if (!token) {
+        throw new Error("User not authenticated");
+      }
+
+      const response = await axios.get(`${BASE_URL}/api/myparticipation`, {
+        params: { user_id },
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      set({ myparticipation: response.data.data, error: null });
+    } catch (error) {
+      console.error("Error in get event:", error);
+      toast.error("Something went wrong");
     } finally {
       set({ loading: false });
     }

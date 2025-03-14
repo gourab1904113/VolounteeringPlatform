@@ -36,7 +36,7 @@ const Navbar = () => {
             {/* Events Link */}
 
             <Link
-              to="/MyParticipation"
+              to="/myparticipation"
               className="flex items-center gap-1 hover:text-primary transition-colors"
             >
               <Box className="size-5" />
@@ -44,7 +44,7 @@ const Navbar = () => {
             </Link>
 
             <Link
-              to="/events"
+              to="/myevents"
               className="flex items-center gap-1 hover:text-primary transition-colors"
             >
               <Album className="size-5" />

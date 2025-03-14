@@ -10,7 +10,7 @@ import {
 
 const router = express.Router();
 
-router.get("/", getEvents);
+router.get("/", verifyToken, getEvents);
 router.get("/:event_id", getEvent);
 router.post("/", verifyToken, createEvent);
 router.put("/:event_id", updateEvent);

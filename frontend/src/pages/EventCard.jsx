@@ -8,6 +8,7 @@ function EventCard({ event }) {
 
   const user = JSON.parse(localStorage.getItem("user")); // Get user object
   const user_id = user ? user.user_id : null;
+
   return (
     <div className="card bg-white shadow-lg rounded-lg overflow-hidden transition-shadow duration-300 hover:shadow-xl">
       <div className="card-body p-4">
@@ -51,30 +52,35 @@ function EventCard({ event }) {
         </div>
 
         {/* Actions */}
-
         <div className="flex justify-end mt-1 space-x-4">
-          {/* Delete Button */}
+          {/* Join Button */}
           <button
             className="flex items-center justify-center bg-yellow-500 text-white p-2 rounded-full hover:bg-yellow-700 transition-colors"
             onClick={() => joinEvent(event.event_id, user_id)}
           >
             <CirclePlus className="size-4" />
           </button>
-          {/* Edit Button */}
-          <Link
-            to={`/event/${event.event_id}`}
-            className="flex items-center justify-center bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 transition-colors"
-          >
-            <EditIcon className="size-4" />
-          </Link>
 
-          {/* Delete Button */}
-          <button
-            className="flex items-center justify-center bg-red-600 text-white p-2 rounded-full hover:bg-red-700 transition-colors"
-            onClick={() => deleteEvent(event.event_id)}
-          >
-            <Trash2Icon className="size-4" />
-          </button>
+          {/* Show Edit & Delete buttons only if the user created the event */}
+          {event.created_by === user_id && (
+            <>
+              {/* Edit Button */}
+              <Link
+                to={`/event/${event.event_id}`}
+                className="flex items-center justify-center bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 transition-colors"
+              >
+                <EditIcon className="size-4" />
+              </Link>
+
+              {/* Delete Button */}
+              <button
+                className="flex items-center justify-center bg-red-600 text-white p-2 rounded-full hover:bg-red-700 transition-colors"
+                onClick={() => deleteEvent(event.event_id)}
+              >
+                <Trash2Icon className="size-4" />
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>
