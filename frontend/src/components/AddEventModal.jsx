@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useEvents } from "../store/useEvents";
+import toast from "react-hot-toast";
 
 function AddEventModal() {
   const { addEvent, setFormData, formData, resetForm } = useEvents();
@@ -13,7 +14,23 @@ function AddEventModal() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await addEvent(e, localFormData);
+
+    const user = JSON.parse(localStorage.getItem("user")); // Get user object
+    const user_id = user ? user.user_id : null;
+
+    if (!user || !user.user_id) {
+      toast.error("User authentication required.");
+      return;
+    }
+
+    // Add created_by to the form data
+    const updatedFormData = {
+      ...localFormData,
+      created_by: user_id, // Add the user_id here
+    };
+
+    // Pass the updated form data to addEvent
+    await addEvent(e, updatedFormData);
     setLocalFormData({
       title: "",
       description: "",
@@ -21,6 +38,7 @@ function AddEventModal() {
       event_time: "",
       location: "",
       category: "",
+      created_by: user_id, // This should be reset to the current user_id
     }); // Reset local state
     resetForm(); // Reset global state
     document.getElementById("my_modal_4").close(); // Close the modal after submission

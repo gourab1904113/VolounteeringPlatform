@@ -1,10 +1,13 @@
-import { EditIcon, Trash2Icon } from "lucide-react";
+import { CirclePlus, EditIcon, Trash2Icon } from "lucide-react";
 import { Link } from "react-router-dom";
 import React from "react";
 import { useEvents } from "../store/useEvents";
 
 function EventCard({ event }) {
-  const { deleteEvent } = useEvents();
+  const { deleteEvent, joinEvent } = useEvents();
+
+  const user = JSON.parse(localStorage.getItem("user")); // Get user object
+  const user_id = user ? user.user_id : null;
   return (
     <div className="card bg-white shadow-lg rounded-lg overflow-hidden transition-shadow duration-300 hover:shadow-xl">
       <div className="card-body p-4">
@@ -41,10 +44,22 @@ function EventCard({ event }) {
             <strong className="font-medium text-gray-800">Created At:</strong>{" "}
             {new Date(event.created_at).toLocaleDateString()}
           </div>
+          <div>
+            <strong className="font-medium text-gray-800">Created By:</strong>{" "}
+            {event.created_by_name}
+          </div>
         </div>
 
         {/* Actions */}
+
         <div className="flex justify-end mt-1 space-x-4">
+          {/* Delete Button */}
+          <button
+            className="flex items-center justify-center bg-yellow-500 text-white p-2 rounded-full hover:bg-yellow-700 transition-colors"
+            onClick={() => joinEvent(event.event_id, user_id)}
+          >
+            <CirclePlus className="size-4" />
+          </button>
           {/* Edit Button */}
           <Link
             to={`/event/${event.event_id}`}
