@@ -21,13 +21,16 @@ import userRoutes from "./routes/userRoutes.js";
 import eventJoin from "./routes/eventJoin.js";
 import myparticipation from "./routes/myparticipation.js";
 import productRoutes from "./routes/productRoute.js"; // Keep this if needed
-
+import postRoutes from "./routes/postRoutes.js";
+import commentRoutes from "./routes/commentRoutes.js";
 // Use event-related routes here (change to something more relevant to the purpose)
 app.use("/api/events", productRoutes); // This might need to be changed to something like eventRoutes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/join-event", eventJoin);
 app.use("/api/myparticipation", myparticipation);
+app.use("/api/posts", postRoutes);
+app.use("/api/comments", commentRoutes);
 
 async function initDB() {
   try {
@@ -43,8 +46,6 @@ async function initDB() {
     );
     `;
 
-    console.log("Users table created or already exists.");
-
     await sql`
     CREATE TABLE IF NOT EXISTS volunteerevents (
       event_id SERIAL PRIMARY KEY,
@@ -59,8 +60,6 @@ async function initDB() {
     );
     `;
 
-    console.log("VolunteerEvents table created or already exists.");
-
     await sql`
        CREATE TABLE IF NOT EXISTS userevent (
         user_id INT,
@@ -71,7 +70,27 @@ async function initDB() {
       );
     `;
 
-    console.log("UserEvent table created or already exists.");
+    await sql`
+     CREATE TABLE IF NOT EXISTS  posts (
+      post_id SERIAL PRIMARY KEY,
+      user_id INTEGER REFERENCES users(user_id),
+      title TEXT NOT NULL,
+      content TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT NOW()
+       );
+    `;
+
+    await sql`
+       CREATE TABLE IF NOT EXISTS  comments (
+      comment_id SERIAL PRIMARY KEY,
+      post_id INTEGER REFERENCES posts(post_id),
+      user_id INTEGER REFERENCES users(user_id),
+      content TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT NOW()
+      );
+   `;
+
+    console.log("DB initialized");
   } catch (error) {
     console.log("Error in initDB", error);
   }

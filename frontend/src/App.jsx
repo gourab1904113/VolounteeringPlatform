@@ -9,6 +9,8 @@ import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 import MyEvents from "./pages/MyEvents";
 import Myparticipation from "./pages/Myparticipation";
+import Helps from "./pages/Helps";
+import CommentPage from "./pages/CommentPage";
 
 export default function App() {
   return (
@@ -25,6 +27,8 @@ export default function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/myevents" element={<MyEvents />} />
         <Route path="/myparticipation" element={<Myparticipation />} />
+        <Route path="/helps" element={<Helps />} />
+        <Route path="/post/:post_id/comments" element={<CommentPage />} />
       </Routes>
       <div>
         <Toaster />

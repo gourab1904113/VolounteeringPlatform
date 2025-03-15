@@ -76,7 +76,7 @@ export const getEvent = async (req, res) => {
   const { event_id } = req.params;
   try {
     const Event = await sql`
-          SELECT * FROM VolunteerEvents WHERE event_id= ${event_id}
+          SELECT * FROM volunteerevents WHERE event_id= ${event_id}
        `;
     res.status(200).json({ success: true, data: Event[0] });
   } catch (error) {
@@ -92,7 +92,7 @@ export const updateEvent = async (req, res) => {
 
   try {
     const updatedEvent = await sql`
-          UPDATE VolunteerEvents 
+          UPDATE volunteerevents 
           SET title=${title}, description=${description}, event_date=${event_date}, event_time=${event_time}, location=${location}, category=${category}
           WHERE event_id= ${event_id} RETURNING *
        `;
@@ -113,7 +113,7 @@ export const deleteEvent = async (req, res) => {
 
   try {
     const deleteEvent = await sql`
-          DELETE FROM VolunteerEvents WHERE event_id=${event_id}
+          DELETE FROM volunteerevents WHERE event_id=${event_id}
           RETURNING *
        `;
     if (deleteEvent.length === 0) {

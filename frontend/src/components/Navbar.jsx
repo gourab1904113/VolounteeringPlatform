@@ -7,6 +7,7 @@ import {
   LogOut,
   Album,
   Box,
+  MessageCircle,
 } from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -34,6 +35,14 @@ const Navbar = () => {
           {/* Right Section - Profile, Login, Signup, Events */}
           <div className="flex items-center gap-4">
             {/* Events Link */}
+
+            <Link
+              to="/helps"
+              className="flex items-center gap-1 hover:text-primary transition-colors"
+            >
+              <MessageCircle className="size-5" />
+              <span className="hidden md:inline">Helps</span>
+            </Link>
 
             <Link
               to="/myparticipation"
