@@ -8,6 +8,7 @@ import {
   Album,
   Box,
   MessageCircle,
+  Users,
 } from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -35,6 +36,14 @@ const Navbar = () => {
           {/* Right Section - Profile, Login, Signup, Events */}
           <div className="flex items-center gap-4">
             {/* Events Link */}
+
+            <Link
+              to="/teams"
+              className="flex items-center gap-1 hover:text-primary transition-colors"
+            >
+              <Users className="size-5" />
+              <span className="hidden md:inline">Teams</span>
+            </Link>
 
             <Link
               to="/helps"

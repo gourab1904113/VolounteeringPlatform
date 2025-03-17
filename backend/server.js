@@ -22,7 +22,12 @@ import eventJoin from "./routes/eventJoin.js";
 import myparticipation from "./routes/myparticipation.js";
 import productRoutes from "./routes/productRoute.js"; // Keep this if needed
 import postRoutes from "./routes/postRoutes.js";
+import teamRoutes from "./routes/teamRoutes.js";
 import commentRoutes from "./routes/commentRoutes.js";
+import teamJoin from "./routes/teamJoin.js";
+import teamJoinEmail from "./routes/teamJoinEmail.js";
+import teamInfo from "./routes/team_info.js";
+
 // Use event-related routes here (change to something more relevant to the purpose)
 app.use("/api/events", productRoutes); // This might need to be changed to something like eventRoutes
 app.use("/api/auth", authRoutes);
@@ -31,6 +36,10 @@ app.use("/api/join-event", eventJoin);
 app.use("/api/myparticipation", myparticipation);
 app.use("/api/posts", postRoutes);
 app.use("/api/comments", commentRoutes);
+app.use("/api/teams", teamRoutes);
+app.use("/api/join-team", teamJoin);
+app.use("/api/join-team-email", teamJoinEmail);
+app.use("/api/teaminfo", teamInfo);
 
 async function initDB() {
   try {
@@ -89,6 +98,25 @@ async function initDB() {
       created_at TIMESTAMP DEFAULT NOW()
       );
    `;
+
+    await sql`
+    CREATE TABLE IF NOT EXISTS  teams (
+    team_id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(user_id),
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    type Text NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW()
+    );
+  `;
+
+    await sql`
+  CREATE TABLE IF NOT EXISTS  teamsuser (
+  teamuser_id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users(user_id),
+  team_id INTEGER REFERENCES teams(team_id)
+  );
+`;
 
     console.log("DB initialized");
   } catch (error) {
