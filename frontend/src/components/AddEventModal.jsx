@@ -83,24 +83,39 @@ function AddEventModal() {
               className="input input-bordered w-full"
               required
             />
-            <input
-              type="text"
+            <select
               name="location"
-              placeholder="Location"
               value={localFormData.location}
               onChange={handleChange}
-              className="input input-bordered w-full"
+              className="select select-bordered w-full"
               required
-            />
-            <input
-              type="text"
+            >
+              <option value="" disabled>
+                Select Location
+              </option>
+              <option value="New York">New York</option>
+              <option value="Los Angeles">Los Angeles</option>
+              <option value="Chicago">Chicago</option>
+              <option value="San Francisco">San Francisco</option>
+              <option value="Boston">Boston</option>
+            </select>
+            <select
               name="category"
-              placeholder="Category"
               value={localFormData.category}
               onChange={handleChange}
-              className="input input-bordered w-full"
+              className="select select-bordered w-full"
               required
-            />
+            >
+              <option value="" disabled>
+                Select Category
+              </option>
+              <option value="Conference">Conference</option>
+              <option value="Workshop">Workshop</option>
+              <option value="Seminar">Seminar</option>
+              <option value="Networking">Networking</option>
+              <option value="Hackathon">Hackathon</option>
+              <option value="Workshop">Workshop</option>
+            </select>
             <button type="submit" className="btn btn-primary w-full">
               Add Event
             </button>

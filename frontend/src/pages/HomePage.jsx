@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useEvents } from "../store/useEvents";
 import { CirclePlus, RefreshCw, CalendarX } from "lucide-react";
 import EventCard from "./EventCard";
@@ -7,10 +7,22 @@ import AddEventModal from "../components/AddEventModal";
 const HomePage = () => {
   const { events, loading, error, fetchEvents } = useEvents();
 
+  // State for filtering
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState("");
+
   // Fetch events on component mount
   useEffect(() => {
     fetchEvents();
   }, [fetchEvents]);
+
+  // Filter events based on selected category and location
+  const filteredEvents = events.filter((event) => {
+    return (
+      (selectedCategory === "" || event.category === selectedCategory) &&
+      (selectedLocation === "" || event.location === selectedLocation)
+    );
+  });
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-8">
@@ -33,6 +45,37 @@ const HomePage = () => {
 
       <AddEventModal />
 
+      {/* Filters Section */}
+      <div className="flex flex-col md:flex-row gap-4 mb-6">
+        {/* Category Filter */}
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          className="select select-bordered w-full md:w-1/2"
+        >
+          <option value="">All Categories</option>
+          <option value="Conference">Conference</option>
+          <option value="Workshop">Workshop</option>
+          <option value="Seminar">Seminar</option>
+          <option value="Networking">Networking</option>
+          <option value="Hackathon">Hackathon</option>
+        </select>
+
+        {/* Location Filter */}
+        <select
+          value={selectedLocation}
+          onChange={(e) => setSelectedLocation(e.target.value)}
+          className="select select-bordered w-full md:w-1/2"
+        >
+          <option value="">All Locations</option>
+          <option value="New York">New York</option>
+          <option value="Los Angeles">Los Angeles</option>
+          <option value="Chicago">Chicago</option>
+          <option value="San Francisco">San Francisco</option>
+          <option value="Boston">Boston</option>
+        </select>
+      </div>
+
       {/* Error Message */}
       {error && (
         <div className="alert alert-error mb-8 text-white bg-red-500 p-4 rounded-lg shadow-md">
@@ -40,8 +83,8 @@ const HomePage = () => {
         </div>
       )}
 
-      {/* No Events Found - Colorful Section */}
-      {events.length === 0 && !loading && (
+      {/* No Events Found */}
+      {filteredEvents.length === 0 && !loading && (
         <div className="flex flex-col items-center justify-center h-64 bg-gradient-to-r from-purple-400 to-pink-500 text-white p-6 rounded-xl shadow-lg">
           <CalendarX className="size-16 text-white drop-shadow-md" />
           <p className="text-lg font-bold mt-4">No events found</p>
@@ -55,7 +98,7 @@ const HomePage = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {events.map((event) => (
+          {filteredEvents.map((event) => (
             <EventCard key={event.event_id} event={event} />
           ))}
         </div>
