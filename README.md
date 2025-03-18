@@ -2,9 +2,7 @@
 
 ## 📖 Project Description
 
-HandsOn is a community-driven social volunteering platform that connects individuals with meaningful social impact opportunities. Users can discover and join volunteer-driven events, post requests for community help, form teams for large-scale initiatives, and track their impact with contributions logged on a personal and team level.
-
-💡 Think of it as a "GitHub for social work"—where people contribute their time instead of code, building real-world impact together.
+HandsOn is a community-driven social volunteering platform that connects individuals with meaningful social impact opportunities. Users can discover and join volunteer-driven events, post requests for community help, form teams for large-scale initiatives.
 
 ## 🔧 Tech Stack
 
@@ -19,8 +17,8 @@ HandsOn is a community-driven social volunteering platform that connects individ
 1. **User Registration & Profile Management**
 
    - Secure sign-up and login with email & password.
-   - User profiles with skills, supported causes, and volunteer history.
-   - Editable profiles with contribution tracking.
+   - User profiles with skills, supported causes
+   - Editable profiles
 
 2. **Discover & Join Volunteer Events**
 
@@ -39,19 +37,12 @@ HandsOn is a community-driven social volunteering platform that connects individ
 
    - Users can form teams for long-term initiatives.
    - Private teams (invite-only) and public teams (open participation).
-   - Team dashboards with members, events, and achievements.
+   - Team dashboards with members
    - Leaderboard for most active teams.
-
-5. **Impact Tracking & Social Recognition**
-   - Users log volunteer hours.
-   - Auto and peer verification of hours.
-   - Point-based system (5 points per hour volunteered).
-   - Auto-generated certificates for milestones.
-   - Public leaderboard ranking the most active volunteers.
 
 ## 🗂 Database Schema
 
-[Insert a visual representation or table describing the schema]
+![Database Schema](./frontend/public/volounteer.drawio.png)
 
 ## 🛠 Setup Instructions
 
