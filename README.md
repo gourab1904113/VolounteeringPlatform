@@ -56,7 +56,18 @@ Ensure you have the following installed:
 ### Installation
 
 1. Clone the repository:
+
    ```bash
-   git clone https://github.com/yourusername/hands-on-volunteering-platform.git
-   cd hands-on-volunteering-platform
+   git clone https://github.com/gourab1904113/VolounteeringPlatform.git
+   cd VOLOUNTEER
    ```
+
+   or Download Zip folder
+   cd .\VolounteeringPlatform-main\
+   npm run dev
+
+   #create new terminal
+
+   cd .\VolounteeringPlatform-main\
+   npm install
+   npm run dev
