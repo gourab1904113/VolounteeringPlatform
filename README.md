@@ -67,6 +67,7 @@ npm run dev
 #create new terminal
 
 cd .\VolounteeringPlatform-main\
+cd .\frontend\
 npm install
 npm run dev
 
